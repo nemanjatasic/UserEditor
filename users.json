@@ -1,0 +1,112 @@
+[
+    {
+        "address": {
+            "city": "San Jone",
+            "postalCode": 95221,
+            "state": "CA",
+            "streetAddress": "Udhna"
+        },
+        "dateOfBirth": "1969-05-07",
+        "firstName": "Racks",
+        "gender": "Male",
+        "lastName": "Jacson",
+        "phoneNumbers": [
+            {
+                "number": 27627,
+                "type": "home"
+            },
+            {
+                "number": 12327627,
+                "type": "mobile"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "San Francisco",
+            "postalCode": 95221,
+            "state": "CA",
+            "streetAddress": "First Avenue"
+        },
+        "dateOfBirth": "1982-12-01",
+        "firstName": "Linda",
+        "gender": "Woman",
+        "lastName": "Willson",
+        "phoneNumbers": [
+            {
+                "number": 27627,
+                "type": "home"
+            },
+            {
+                "number": 12327627,
+                "type": "mobile"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "New York",
+            "postalCode": 1234,
+            "state": "NY",
+            "streetAddress": "Allen Street"
+        },
+        "dateOfBirth": "1926-06-01",
+        "firstName": "Merlin",
+        "gender": "Woman",
+        "lastName": "Monroe",
+        "phoneNumbers": [
+            {
+                "number": 987654,
+                "type": "home"
+            },
+            {
+                "number": 1234567,
+                "type": "mobile"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Christopher",
+            "postalCode": 62822,
+            "state": "Illinois",
+            "streetAddress": "Second Street"
+        },
+        "dateOfBirth": "1953-12-09",
+        "firstName": "John",
+        "gender": "Male",
+        "lastName": "Malkovich",
+        "phoneNumbers": [
+            {
+                "number": 98712654,
+                "type": "home"
+            },
+            {
+                "number": 1243567,
+                "type": "mobile"
+            }
+        ]
+    },
+    {
+        "address": {
+            "city": "Los Angeles",
+            "postalCode": 90001,
+            "state": "California",
+            "streetAddress": "First Street"
+        },
+        "dateOfBirth": "1924-04-03",
+        "firstName": "Marlon",
+        "gender": "Male",
+        "lastName": "Brando",
+        "phoneNumbers": [
+            {
+                "number": 98755654,
+                "type": "home"
+            },
+            {
+                "number": 1245567,
+                "type": "mobile"
+            }
+        ]
+    }       
+]
