@@ -13,8 +13,20 @@ class Address
 public:
     Address(QJsonObject obj);
     Address();
+    Address(QString streetAddress, QString city, QString state, int postalCode);
     QJsonObject toJsonObject();
-//private:
+
+    void setStreetAddress(QString street);
+    void setCity(QString city);
+    void setState(QString state);
+    void setPostalCode(int postalCode);
+
+    QString getStreetAddress();
+    QString getCity();
+    QString getState();
+    int getPostalCode();
+
+private:
     QString city;
     int postalCode;
     QString state;

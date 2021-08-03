@@ -30,6 +30,7 @@ public:
     QByteArray data_json;
     QJsonObject jObj;
     User publicUser;
+    QString path;
 
 signals:
     void accept(int);
@@ -43,6 +44,12 @@ private slots:
 
     void onAddedUser(int);
 
+
+    void on_newFilePushButton_clicked();
+
+    void on_openFilePushButton_clicked();
+
+    void on_saveFilePushButton_clicked();
 
 private:
     Ui::MainWindow *ui;

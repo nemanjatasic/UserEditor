@@ -14,14 +14,13 @@
 #include <QListWidgetItem>
 #include <QListWidget>
 #include <QObject>
+#include <QFileDialog>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    readJSON();
-    loadUsers();
 }
 
 MainWindow::~MainWindow()
@@ -36,8 +35,6 @@ void MainWindow::onAddedUser(int signalValue) {
 
 void MainWindow::readJSON()
 {
-    QString path = qApp->applicationDirPath();
-    path.append("/users.json");
     QFile input(path);
 
     if(!input.open(QIODevice::ReadOnly | QIODevice::Text))
@@ -51,8 +48,6 @@ void MainWindow::readJSON()
 }
 
 void MainWindow::writeJSON() {
-    QString path = qApp->applicationDirPath();
-    path.append("/users.json");
     QFile output(path);
 
     if(!output.open(QIODevice::WriteOnly | QIODevice::Text))
@@ -76,7 +71,7 @@ void MainWindow::loadUsers()
 
     for (auto it : users) {
         QString name;
-        name.append(it.firstName).append(" ").append(it.lastName);
+        name.append(it.getFirstName()).append(" ").append(it.getLastName());
         ui -> usersListWidget -> addItem(name);
     }
 }
@@ -86,7 +81,6 @@ void MainWindow::addUser(User nUser)
     QJsonObject nObj = nUser.toJsonObject();
     arr.append(nObj);
     loadUsers();
-    writeJSON();
 }
 
 void MainWindow::on_addPushButton_clicked()
@@ -100,23 +94,23 @@ void MainWindow::on_usersListWidget_itemActivated(QListWidgetItem *item)
 {
     for (auto it : users) {
         QString name;
-        name.append(it.firstName).append(" ").append(it.lastName);
+        name.append(it.getFirstName()).append(" ").append(it.getLastName());
         if (name == item->text()) {
-            ui -> firstNameOutputLabel -> setText(it.firstName);
-            ui -> lastNameOutputLabel -> setText(it.lastName);
-            ui -> genderOutoupLabel -> setText(it.gender);
-            ui -> dateOutputLabel -> setText(it.dateOfBirth.toString());
-            ui -> addressOutputLabel -> setText(it.address.streetAddress);
-            ui -> cityOutputLabel -> setText(it.address.city);
-            ui -> stateOutputLabel -> setText(it.address.state);
-            ui -> postalCodeOutputLabel -> setText(QVariant(it.address.postalCode).toString());
+            ui -> firstNameOutputLabel -> setText(it.getFirstName());
+            ui -> lastNameOutputLabel -> setText(it.getLastName());
+            ui -> genderOutoupLabel -> setText(it.getGender());
+            ui -> dateOutputLabel -> setText(it.getDateOfBirth().toString());
+            ui -> addressOutputLabel -> setText(it.getAddress().getStreetAddress());
+            ui -> cityOutputLabel -> setText(it.getAddress().getCity());
+            ui -> stateOutputLabel -> setText(it.getAddress().getState());
+            ui -> postalCodeOutputLabel -> setText(QVariant(it.getAddress().getPostalCode()).toString());
 
             ui -> phoneOutputList->clear();
             QString homeNumber;
-            homeNumber.append("home").append(" : ").append(it.phoneNumbers.value("home"));
+            homeNumber.append("home").append(" : ").append(it.getHomePhoneNumber());
             ui -> phoneOutputList -> addItem(homeNumber);
             QString mobileNumber;
-            mobileNumber.append("mobile").append(" : ").append(it.phoneNumbers.value("mobile"));
+            mobileNumber.append("mobile").append(" : ").append(it.getMobilePhoneNumber());
             ui -> phoneOutputList -> addItem(mobileNumber);
         }
     }
@@ -130,7 +124,43 @@ void MainWindow::on_removePushButton_clicked()
     QMessageBox::StandardButton reply = QMessageBox::question(this, "Delete user", message, QMessageBox::Yes | QMessageBox::No);
     if (reply == QMessageBox::Yes) {
         arr.removeAt(ui->usersListWidget->currentRow());
-        writeJSON();
         loadUsers();
     }
+}
+
+void MainWindow::on_newFilePushButton_clicked()
+{
+    QString fileName = QFileDialog::getSaveFileName(this, "Create new file:", qApp->applicationDirPath(), "All File (*.*) ;; JSON File (*.json)");
+
+    if (!fileName.endsWith(".json"))
+        fileName.append(".json");
+
+    if (fileName != ".json") {
+        ui -> addPushButton -> setEnabled(true);
+        ui -> removePushButton -> setEnabled(true);
+        ui -> usersListWidget -> clear();
+        arr = QJsonArray();
+        path = fileName;
+        ui -> fileOutputLabel->setText(fileName.right(fileName.size() - qApp->applicationDirPath().size() - 1));
+    }
+}
+
+void MainWindow::on_openFilePushButton_clicked()
+{
+    QString filter = "All File (*.*) ;; JSON File (*.json)";
+    QString fileName = QFileDialog::getOpenFileName(this, "Open a file:", qApp->applicationDirPath(), filter);
+
+    if (!fileName.isEmpty()) {
+        path = fileName;
+        readJSON();
+        loadUsers();
+        ui -> addPushButton -> setEnabled(true);
+        ui -> removePushButton -> setEnabled(true);
+        ui -> fileOutputLabel->setText(fileName.right(fileName.size() - qApp->applicationDirPath().size() - 1));
+    }
+}
+
+void MainWindow::on_saveFilePushButton_clicked()
+{
+    writeJSON();
 }

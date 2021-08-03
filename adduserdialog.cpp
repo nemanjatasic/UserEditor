@@ -70,16 +70,13 @@ void AddUserDialog::on_buttonBox_accepted()
     QString homePhone = ui -> homePhoneLineEdit -> text();
     QString mobilePhone = ui -> mobilePhoneLineEdit -> text();
 
-    prntUser.firstName = fName;
-    prntUser.lastName = lName;
-    prntUser.gender = gen;
-    prntUser.dateOfBirth = date;
-    prntUser.address.streetAddress = streetAddress;
-    prntUser.address.city = city;
-    prntUser.address.state = state;
-    prntUser.address.postalCode = postalCode;
-    prntUser.phoneNumbers.insert("home", homePhone);
-    prntUser.phoneNumbers.insert("mobile", mobilePhone);
+    prntUser.setFirstName(fName);
+    prntUser.setLastName(lName);
+    prntUser.setGender(gen);
+    prntUser.setDateOfBirth(date);
+    prntUser.setAddress(streetAddress, city, state, postalCode);
+    prntUser.setHomePhoneNumber(homePhone);
+    prntUser.setMobilePhoneNUmber(mobilePhone);
 
     emit accept(QDialog::Accepted);
 }

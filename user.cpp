@@ -53,3 +53,78 @@ QJsonObject User::toJsonObject()
 
     return obj;
 }
+
+void User::setFirstName(QString fName)
+{
+    firstName = fName;
+}
+
+void User::setLastName(QString lName)
+{
+    lastName = lName;
+}
+
+void User::setGender(QString userGender)
+{
+    gender = userGender;
+}
+
+void User::setAddress(Address &addr)
+{
+    address = Address(addr);
+}
+
+void User::setAddress(QString streetAddr, QString city, QString state, int postalCode)
+{
+    address = Address(streetAddr, city, state, postalCode);
+}
+
+void User::setDateOfBirth(QDate date)
+{
+    dateOfBirth = date;
+}
+
+void User::setHomePhoneNumber(QString number)
+{
+    phoneNumbers.insert("home", number);
+}
+
+void User::setMobilePhoneNUmber(QString number)
+{
+    phoneNumbers.insert("mobile", number);
+}
+
+QString User::getFirstName()
+{
+    return firstName;
+}
+
+QString User::getLastName()
+{
+    return lastName;
+}
+
+QString User::getGender()
+{
+    return gender;
+}
+
+Address User::getAddress()
+{
+    return address;
+}
+
+QDate User::getDateOfBirth()
+{
+    return dateOfBirth;
+}
+
+QString User::getHomePhoneNumber()
+{
+    return phoneNumbers.value("home");
+}
+
+QString User::getMobilePhoneNumber()
+{
+    return phoneNumbers.value("mobile");
+}
