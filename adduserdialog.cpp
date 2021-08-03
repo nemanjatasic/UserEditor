@@ -11,12 +11,42 @@
 #include <QRegExp>
 #include "user.h"
 #include "mainwindow.h"
+#include <QRegExp>
+#include <QRegExpValidator>
 
 AddUserDialog::AddUserDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::AddUserDialog)
 {
     ui->setupUi(this);
+
+    QRegExp firstNameRegExp("([A-Z][a-zA-Z]+)( [A-Z][a-zA-Z]+)?");
+    QRegExpValidator *firstNameValidator = new QRegExpValidator(firstNameRegExp, this);
+    ui -> firstNameLineEdit -> setValidator(firstNameValidator);
+
+    QRegExp lastNameRegExp("([A-Z][a-zA-Z]+)( [A-Z][a-zA-Z]+){0,2}");
+    QRegExpValidator *lastNameValidator = new QRegExpValidator(lastNameRegExp, this);
+    ui -> lastNameLineEdit -> setValidator(lastNameValidator);
+
+    QIntValidator *postCodeValidator = new QIntValidator(0, 99999);
+    ui -> postCodeLineEdit -> setValidator(postCodeValidator);
+
+    QRegExp streetRegExp("[ a-zA-Z0-9-.]+");
+    QRegExpValidator *streetValidator = new QRegExpValidator(streetRegExp, this);
+    ui -> addressLineEdit -> setValidator(streetValidator);
+
+    QRegExp cityRegExp("([A-Z][a-zA-Z]+)( [A-Z][a-zA-Z]+){0,3}");
+    QRegExpValidator *cityNameValidator = new QRegExpValidator(cityRegExp, this);
+    ui -> cityLineEdit -> setValidator(cityNameValidator);
+
+    QRegExp stateRegExp("([A-Z][a-zA-Z]+)( [A-Z][a-zA-Z]+){0,2}");
+    QRegExpValidator *stateNameValidator = new QRegExpValidator(stateRegExp, this);
+    ui -> stateLineEdit -> setValidator(stateNameValidator);
+
+    QRegExp phoneNumberRegExp("[0-9]{5,15}");
+    QRegExpValidator *phoneNumberValidator = new QRegExpValidator(phoneNumberRegExp, this);
+    ui -> homePhoneLineEdit -> setValidator(phoneNumberValidator);
+    ui -> mobilePhoneLineEdit -> setValidator(phoneNumberValidator);
 }
 
 AddUserDialog::~AddUserDialog()
@@ -40,7 +70,6 @@ void AddUserDialog::on_buttonBox_accepted()
     QString homePhone = ui -> homePhoneLineEdit -> text();
     QString mobilePhone = ui -> mobilePhoneLineEdit -> text();
 
-
     prntUser.firstName = fName;
     prntUser.lastName = lName;
     prntUser.gender = gen;
@@ -54,6 +83,3 @@ void AddUserDialog::on_buttonBox_accepted()
 
     emit accept(QDialog::Accepted);
 }
-
-
-
