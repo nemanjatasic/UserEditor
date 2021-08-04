@@ -78,5 +78,5 @@ void AddUserDialog::on_buttonBox_accepted()
     prntUser.setHomePhoneNumber(homePhone);
     prntUser.setMobilePhoneNUmber(mobilePhone);
 
-    emit accept(QDialog::Accepted);
+    emit accept(QDialog::Accepted); // signal to initiate adding new user object in QJsonArray
 }
